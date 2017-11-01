@@ -16,5 +16,15 @@ pipeline {
           		sh "./gradlew sonarqube   -Dsonar.host.url=http://applb-dockerresgroup.westeurope.cloudapp.azure.com:9000   -Dsonar.login=3b262ea4d6eba43f8e8a57e9f2e8f2c65ca493e1"
     		}
 	  }
+          stage("Package") {
+                steps {
+                        sh "./gradlew build"
+                }
+          } 
+          stage("Docker build") {
+                steps {
+                        sh "docker build -t genepi73/calculator ."
+                }
+          }
      }
 }
